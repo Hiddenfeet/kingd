@@ -1,0 +1,32 @@
+{
+  "name": "apestake",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@thirdweb-dev/react": "^3",
+    "@thirdweb-dev/sdk": "^3.10.50",
+    "@web3-onboard/core": "^2.21.0",
+    "@web3-onboard/injected-wallets": "^2.10.4",
+    "ethers": "5",
+    "framer-motion": "^10.15.1",
+    "next": "^13",
+    "react": "^18.2",
+    "react-dom": "^18.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "@types/react": "^17.0.53",
+    "eslint": "^8.32.0",
+    "eslint-config-next": "^13",
+    "typescript": "^4.9.4"
+  }
+}
