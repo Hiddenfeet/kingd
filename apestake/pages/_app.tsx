@@ -7,6 +7,12 @@ import { metamaskWallet, walletConnect,  coinbaseWallet, } from "@thirdweb-dev/r
 import Onboard from '@web3-onboard/core';
 import injectedModule from '@web3-onboard/injected-wallets';
 import { CronosBeta } from "@thirdweb-dev/chains";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { Cronos } from "@thirdweb-dev/chains";
+
+const sdk = new ThirdwebSDK(Cronos, {
+  clientId: "TW_CLIENT_ID",
+});
 
 
 
@@ -14,6 +20,26 @@ import { CronosBeta } from "@thirdweb-dev/chains";
 
 
 
+
+const MAINNET_RPC_URL = 'https://evm.cronos.org/';
+const injected = injectedModule();
+
+const onboard = Onboard({
+  wallets: [injected],
+  chains: [
+    {
+      id: '0x25',
+      token: 'CRO',
+      label: 'Cronos Mainnet',
+      rpcUrl: MAINNET_RPC_URL
+    }
+  ],
+  appMetadata: {
+    name: 'Apes Staking',
+    icon: 'https://ipfs.flair.finance/ipfs/QmWjizft2Pok8LNKLHaTLw911qNPsEJwWaBYPV9PiTv2D1',
+    description: 'NFT Staking App'
+  }
+});
 
 
 
@@ -37,51 +63,34 @@ const activeChain = "CronosBeta";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const activeChain = CronosBeta;
-
   return (
-    <ThirdwebProvider       
-      
-      activeChain={{
-        // === Required information for connecting to the network === \\
-        chainId: 25, // Chain ID of the network
-        // Array of RPC URLs to use
-        rpc: ["https://node.croswap.com/rpc", "https://evm.cronos.org/", "https://rpc.vvs.finance/", "https://rpc.crodex.app/"],
-
-        // === Information for adding the network to your wallet (how it will appear for first time users) === \\
-        // Information about the chains native currency (i.e. the currency that is used to pay for gas)
-        nativeCurrency: {
-          decimals: 18,
-          name: "Cronos",
-          symbol: "CRO",
-        },
-        shortName: "CRO", // Display value shown in the wallet UI
-        slug: "Cronos", // Display value shown in the wallet UI
-        testnet: false, // Boolean indicating whether the chain is a testnet or mainnet
-        chain: "Cronos Mainnet", // Name of the network
-        name: "Cronos Mainnet", // Name of the network
-      }}
-      dAppMeta={{
-        name: "The Steakhouse",
-        description: "Bringing you the meatiest tokens and nft's on the blockchain",
-        logoUrl: "https://cdn.discordapp.com/attachments/983357184144465963/1102546115091517490/IMG_3155.png",
-        url: "https://www.cronossteakhouse.com",
-        isDarkMode: true,
-      }}
-sdkOptions={{
-                gatewayUrls: [
-                    "https://cloudflare-ipfs.com/ipfs/",
-                    "https://ipfs-2.thirdwebcdn.com/ipfs",
-                ],
-            }}
-      >
-      <ChakraProvider>
-      
-        
+    <ThirdwebProvider
+      supportedWallets={[
+        walletConnect(),
+        metamaskWallet(),
+        coinbaseWallet(), 
+      ]}
+      activeChain={Cronos}
+      clientId={process.env.TW_CLIENT_ID}
+    >
+      <ChakraProvider theme={theme}>
+        <Head>
+          {/* Add your custom text here */}
+          <title>Kingdom Apes NFT Staking</title>
+        </Head>
+        {/* Wrap the background image with the Box component */}
+        <Box
+          w="100%"
+          h="100vh"
+          _hover={{
+            background: "hsl(243, 4.9%, 18.8%)",
+          }}
+        >
+          <Component {...pageProps} />
+        </Box>
       </ChakraProvider>
-     </ThirdwebProvider>
+    </ThirdwebProvider>
   );
 }
 
 export default MyApp;
-
