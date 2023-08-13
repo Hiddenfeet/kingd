@@ -6,13 +6,10 @@ import Head from "next/head";
 import { metamaskWallet, walletConnect,  coinbaseWallet, } from "@thirdweb-dev/react";
 import Onboard from '@web3-onboard/core';
 import injectedModule from '@web3-onboard/injected-wallets';
-import { CronosBeta } from "@thirdweb-dev/chains";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { Cronos } from "@thirdweb-dev/chains";
 
-const sdk = new ThirdwebSDK(Cronos, {
-  clientId: "TW_CLIENT_ID",
-});
+
 
 
 
@@ -59,6 +56,9 @@ const theme = extendTheme({
 
 const activeChainId = "0x25";
 const activeChain = "CronosBeta";
+const sdk = new ThirdwebSDK(Cronos, {
+  clientId: "TW_CLIENT_ID",
+});
 
 
 
